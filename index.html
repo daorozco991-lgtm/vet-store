@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Huellitas Veterinaria · Mascotas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+:root{--bg:#eef5fc;--surface:#fff;--ink:#14263d;--muted:#5d7189;--line:#e3ebf4;--brand:#1c7ed6;--brand-d:#1563ab;--soft:#d9ebfb;--accent:#ff8a4c;--shadow:0 6px 18px rgba(20,60,110,.10);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1824;--surface:#16263a;--ink:#e8f0f9;--muted:#93a7bf;--line:#243card;--line:#24384f;--brand:#4aa3f0;--brand-d:#7bbcf5;--soft:#1d3a58;--shadow:0 6px 18px rgba(0,0,0,.35)}}
+:root[data-theme="dark"]{--bg:#0e1824;--surface:#16263a;--ink:#e8f0f9;--muted:#93a7bf;--line:#24384f;--brand:#4aa3f0;--brand-d:#7bbcf5;--soft:#1d3a58;--shadow:0 6px 18px rgba(0,0,0,.35)}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--bg);color:var(--ink);display:grid;grid-template-columns:240px 1fr;grid-template-rows:64px 1fr;grid-template-areas:"side top" "side main"}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+header{grid-area:top;background:var(--brand);display:flex;align-items:center;gap:16px;padding:0 20px;color:#fff;position:sticky;top:0;z-index:5}
+.search{flex:1;max-width:520px;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.2);border-radius:12px;padding:0 14px;height:42px}
+.search input{flex:1;background:none;border:0;color:#fff;font:inherit;font-size:16px;outline:0}
+.search input::placeholder{color:#e6f1fc}
+.btn{border-radius:10px;border:1px solid transparent;padding:9px 14px;font-weight:700;display:inline-flex;align-items:center;gap:7px;justify-content:center;transition:transform .12s,background .15s}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;border-color:rgba(255,255,255,.7);color:#fff;margin-left:auto}
+.btn.ghost:hover{background:rgba(255,255,255,.15)}
+.btn.edit{background:var(--surface);border-color:var(--line);color:var(--ink);flex:1}
+.btn.edit:hover{background:var(--bg)}
+.btn.sched{background:var(--brand);color:#fff;flex:1}
+.btn.sched:hover{background:var(--brand-d)}
+.icon-btn{background:rgba(255,255,255,.18);border:0;color:#fff;width:42px;height:42px;border-radius:12px;font-size:18px}
+aside{grid-area:side;background:var(--surface);display:flex;flex-direction:column;padding:14px;border-right:1px solid var(--line);position:sticky;top:0;height:100vh}
+.logo{display:flex;align-items:center;gap:10px;padding:4px 6px 18px}
+.logo i{width:42px;height:42px;border-radius:12px;background:var(--brand);display:grid;place-items:center;font-style:normal;font-size:22px}
+.logo b{font-size:19px;display:block;line-height:1.1}.logo small{color:var(--muted);font-weight:600}
+nav a{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;color:var(--ink);text-decoration:none;font-weight:600;margin-bottom:4px;cursor:pointer}
+nav a:hover{background:var(--bg)}
+nav a.on{background:var(--soft);color:var(--brand-d);font-weight:800}
+.me{margin-top:auto;background:var(--bg);border-radius:14px;padding:12px;display:flex;gap:10px;align-items:center}
+.av{width:38px;height:38px;border-radius:50%;background:var(--soft);color:var(--brand-d);display:grid;place-items:center;font-weight:800}
+.me small{color:var(--muted);font-weight:600;font-size:12px}
+.logout{margin-top:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:11px;color:var(--ink);font-weight:600}
+main{grid-area:main;padding:22px 26px 90px;overflow:auto}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+.bar h1{font-size:26px;margin:0 auto 0 0}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 14px;font-weight:700;font-size:14px}
+.chip.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+select{font:inherit;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:8px 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.card{background:var(--surface);border-radius:18px;padding:20px;box-shadow:var(--shadow);transition:transform .15s}
+.card:hover{transform:translateY(-3px)}
+.top{display:flex;gap:14px;align-items:flex-start}
+.pic{width:46px;height:46px;border-radius:13px;background:var(--brand);display:grid;place-items:center;font-size:24px;flex:none}
+.top h3{margin:0;font-size:18px}
+.id{margin-left:auto;color:var(--muted);font-size:13px;font-weight:600}
+.tag{display:inline-block;margin-top:6px;background:var(--soft);color:var(--brand-d);border-radius:6px;padding:2px 9px;font-size:12.5px;font-weight:700}
+.rows{border-top:1px solid var(--line);margin-top:16px;padding-top:12px}
+.row{display:flex;justify-content:space-between;padding:5px 0;font-size:15px}
+.row span:first-child{color:var(--muted)}
+.row span:last-child{font-weight:700;text-align:right}
+.acts{display:flex;gap:10px;margin-top:14px}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:50px 0;font-weight:600}
+.fab{position:fixed;right:24px;bottom:calc(24px + env(safe-area-inset-bottom,0px));width:58px;height:58px;border-radius:50%;background:var(--brand);color:#fff;border:0;font-size:24px;box-shadow:0 8px 20px rgba(20,60,110,.35)}
+dialog{border:0;border-radius:18px;padding:24px;width:min(420px,92vw);background:var(--surface);color:var(--ink);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,25,45,.5)}
+dialog h2{margin:0 0 14px}
+label{display:block;font-weight:700;font-size:14px;margin:10px 0 4px}
+input.f,select.f{width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+.dacts{display:flex;gap:10px;margin-top:18px}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:12px;font-weight:700;opacity:0;pointer-events:none;transition:.25s;z-index:20}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.chat{position:fixed;right:24px;bottom:24px;width:min(400px,calc(100vw - 24px));height:min(640px,calc(100vh - 100px));background:var(--surface);border-radius:18px;box-shadow:0 20px 60px rgba(10,30,60,.35);display:none;flex-direction:column;overflow:hidden;z-index:15}
+.chat.open{display:flex;animation:pop .2s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}}
+.fab.hide{display:none}
+nav a[hidden],.login[hidden]{display:none}
+.me{cursor:pointer;border:0;text-align:left;width:100%;color:var(--ink);font:inherit}
+.list{display:flex;flex-direction:column;gap:12px}
+.item{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);padding:14px 18px;display:grid;grid-template-columns:200px 1fr auto auto;gap:14px;align-items:center}
+.who span{display:block;color:var(--muted);font-size:14px}
+.when{font-weight:700}
+.ia{display:flex;gap:8px}.ia .btn{padding:7px 12px;font-size:14px}
+.st{border-radius:999px;padding:3px 12px;font-size:13px;font-weight:800;background:var(--soft);color:var(--brand-d)}
+.st.Completada{background:#d8f5e3;color:#16794a}.st.Cancelada{background:#fde2e0;color:#b3261e}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-bottom:20px}
+.stat{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);padding:16px}
+.stat span{font-size:22px}.stat b{display:block;font-size:30px}.stat small{color:var(--muted);font-weight:600}
+.panel{background:var(--surface);border-radius:18px;box-shadow:var(--shadow);padding:20px;margin-bottom:20px}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.ph h2{margin:0;font-size:19px}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse}
+th{text-align:left;color:var(--muted);font-size:13px;padding:8px;border-bottom:1px solid var(--line)}
+td{padding:10px 8px;border-bottom:1px solid var(--line)}td small{color:var(--muted)}
+.sw{display:inline-flex;gap:6px;margin:0;align-items:center}
+.login{position:fixed;inset:0;z-index:30;background:var(--bg);display:grid;place-items:center;padding:16px}
+.lc{background:var(--surface);border-radius:20px;box-shadow:var(--shadow);padding:28px;width:min(380px,100%)}
+.lc h2{margin:6px 0 2px}.lc p{color:var(--muted);margin:0 0 8px}.err{color:#b3261e;font-weight:700;min-height:20px;margin-top:8px}
+@media(max-width:760px){.item{grid-template-columns:1fr auto}.mnav{display:flex}}
+.mnav{display:none;gap:6px;overflow-x:auto;margin-bottom:14px}
+.ch{background:var(--brand);color:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px}
+.ch .bot-av{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.25);display:grid;place-items:center;font-size:22px}
+.ch b{font-size:18px;display:block}.ch small{font-weight:600;font-size:13px}
+.ch small:before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:#6ee7a0;margin-right:6px}
+.ch .sp{margin-left:auto;display:flex;gap:4px}
+.ch button{background:none;border:0;color:#fff;font-size:20px;width:36px;height:36px;border-radius:50%}
+.ch button:hover{background:rgba(255,255,255,.2)}
+#msgs{flex:1;overflow:auto;padding:18px;background:var(--bg);display:flex;flex-direction:column;gap:12px}
+.m{max-width:82%;display:flex;flex-direction:column;gap:3px}
+.m small{color:var(--muted);font-size:12px;padding:0 4px}
+.m .b{padding:11px 15px;border-radius:14px;line-height:1.4;font-size:15px;white-space:pre-wrap}
+.m.bot .b{background:var(--surface);border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(20,60,110,.08)}
+.m.me{align-self:flex-end;align-items:flex-end}
+.m.me .b{background:var(--brand);color:#fff;border-bottom-right-radius:4px}
+.typing .b{display:flex;gap:4px;padding:14px 16px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:blink 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blink{50%{opacity:.25}}
+.sug{display:flex;gap:6px;flex-wrap:wrap;padding:8px 14px 0;background:var(--surface)}
+.sug .chip{font-size:12.5px;padding:5px 11px}
+.cf{padding:10px 14px 8px;background:var(--surface)}
+.cr{display:flex;align-items:center;gap:8px}
+.cr input{flex:1;min-width:0;padding:10px 14px;border-radius:999px;border:2px solid var(--brand);background:var(--surface);color:var(--ink);font:inherit;font-size:15px}
+.cr button{border:0;border-radius:50%;width:40px;height:40px;font-size:18px;background:var(--soft);color:var(--brand-d)}
+.cr button.send{background:none;font-size:22px;color:var(--brand)}
+.cr button.rec{background:var(--accent);color:#fff;animation:blink 1s infinite}
+.cnt{text-align:right;font-size:12.5px;color:var(--muted);margin-top:4px}
+@media(max-width:760px){.chat{right:12px;bottom:12px;height:calc(100vh - 90px)}}
+@media(max-width:760px){
+body{grid-template-columns:1fr;grid-template-areas:"top" "main"}
+aside{display:none}
+.search{max-width:none}
+.btn.ghost span{display:none}
+main{padding:16px 14px 90px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<aside>
+  <div class="logo"><i>🐾</i><div><b>Huellitas</b><small>Veterinaria</small></div></div>
+  <nav>
+    <a data-v="citas">📅 Citas</a><a data-v="mascotas" class="on">🐾 Mascotas</a><a data-v="duenos">👥 Dueños</a><a data-v="admin" id="navadmin">🛡️ Administración</a>
+  </nav>
+  <button class="me" id="me" title="Mi cuenta"><div class="av" id="meav">AD</div><div><b id="mename">admin</b><br><small id="merole">Administrador</small></div></button>
+  <button class="logout" id="logout">⎋ Cerrar sesión</button>
+</aside>
+
+<header>
+  <label class="search" style="margin:0"><span>🔍</span><input id="q" placeholder="Buscar por mascota, dueño o raza…" aria-label="Buscar"></label>
+  <button class="icon-btn" id="theme" title="Cambiar tema" aria-label="Cambiar tema">🌓</button>
+  <button class="btn ghost" id="new">＋ <span>Nuevo</span></button>
+</header>
+
+<main>
+  <div class="mnav" id="mnav"><button class="chip" data-v="citas">Citas</button><button class="chip" data-v="mascotas">Mascotas</button><button class="chip" data-v="duenos">Dueños</button></div>
+  <div id="v-mascotas"><div class="bar">
+    <h1>Mascotas <small id="count" style="font-size:15px;color:var(--muted)"></small></h1>
+    <button class="chip on" data-f="todas">Todas</button>
+    <button class="chip" data-f="cachorro">Cachorros</button>
+    <button class="chip" data-f="adulto">Adultos</button>
+    <select id="sort" aria-label="Ordenar">
+      <option value="id">Más recientes</option>
+      <option value="name">Nombre A–Z</option>
+      <option value="age">Edad</option>
+    </select>
+  </div>
+  <div class="grid" id="grid"></div></div>
+  <div id="v-citas" hidden></div><div id="v-duenos" hidden></div><div id="v-admin" hidden></div>
+</main>
+
+<button class="fab" id="fab" title="Asistente de citas" aria-label="Abrir asistente de citas">💬</button>
+<section class="chat" id="chat" aria-label="Asistente de citas">
+  <div class="ch"><div class="bot-av">🤖</div><div><b>Asistente de Citas</b><small>En línea</small></div>
+    <div class="sp"><button id="cclear" title="Borrar conversación" aria-label="Borrar conversación">🗑</button><button id="cclose" title="Cerrar" aria-label="Cerrar">✕</button></div></div>
+  <div id="msgs" aria-live="polite"></div>
+  <div class="sug" id="sug"><button class="chip">Cita para Simba mañana 10 am</button><button class="chip">Ver mis citas</button></div>
+  <div class="cf"><div class="cr"><input id="cin" maxlength="300" placeholder="Escribe tu mensaje…" aria-label="Mensaje" autocomplete="off"><button id="mic" title="Dictar por voz" aria-label="Dictar por voz">🎤</button><button class="send" id="send" title="Enviar" aria-label="Enviar">➤</button></div><div class="cnt" id="cnt">0/300</div></div>
+</section>
+
+<dialog id="dlg">
+  <form method="dialog" id="form">
+    <h2 id="dt">Nueva mascota</h2>
+    <label>Nombre</label><input class="f" id="fn" required>
+    <label>Raza</label><input class="f" id="fb" required>
+    <label>Propietario</label><input class="f" id="fo" required>
+    <label>Edad (en meses)</label><input class="f" id="fa" type="number" min="0" required>
+    <div class="dacts"><button type="button" class="btn edit" id="cancel">Cancelar</button><button class="btn sched" id="save" value="ok">Guardar</button></div>
+  </form>
+</dialog>
+<dialog id="gd"><form method="dialog" id="gform"><h2 id="gt"></h2><div id="gf"></div><div class="dacts"><button type="button" class="btn edit" id="gcancel">Cancelar</button><button class="btn sched">Guardar</button></div></form></dialog>
+<div class="login" id="login" hidden><form class="lc" id="lform"><div class="logo" style="padding:0"><i>🐾</i><div><b>Huellitas</b><small>Veterinaria</small></div></div><h2>Iniciar sesión</h2><p>Demo: admin / admin123 · laura / 1234</p><label>Usuario</label><input class="f" id="lu" required autocomplete="username"><label>Contraseña</label><input class="f" id="lp" type="password" required autocomplete="current-password"><div class="err" id="lerr" role="alert"></div><button class="btn sched" style="width:100%;margin-top:8px">Entrar</button></form></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+let pets=[
+{id:23,name:'Firulais',breed:'Rotwailer',owner:'Felipe Castro',months:3},
+{id:22,name:'Simba',breed:'Persa',owner:'Juan Pérez',months:36,cat:1},
+{id:21,name:'Daisy',breed:'Rotwailer',owner:'Felipe Castro',months:3},
+{id:20,name:'Bobby',breed:'Cocker Spaniel',owner:'Valentina Moreno',months:72},
+{id:19,name:'Kira',breed:'Akita',owner:'Valentina Moreno',months:48},
+{id:18,name:'Tom',breed:'Criollo',owner:'Camilo Herrera',months:84,cat:1},
+{id:17,name:'Daisy',breed:'Chihuahua',owner:'Camilo Herrera',months:60},
+{id:16,name:'Pelusa',breed:'Angora',owner:'Diana Rojas',months:36,cat:1},
+{id:15,name:'Bruno',breed:'Pitbull',owner:'Diana Rojas',months:96},
+{id:14,name:'Mía',breed:'Shih Tzu',owner:'Felipe Castro',months:36},
+{id:13,name:'Loki',breed:'Border Collie',owner:'Felipe Castro',months:72},
+{id:12,name:'Zeus',breed:'Rottweiler',owner:'Natalia Ruiz',months:108}
+];
+let filter='todas',editing=null;
+const $=s=>document.querySelector(s);
+const age=m=>m<12?`${m} meses`:`${Math.floor(m/12)} ${m<24?'año':'años'}`;
+const esc=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function render(){
+  const q=$('#q').value.trim().toLowerCase();
+  let list=pets.filter(p=>(p.name+p.breed+p.owner).toLowerCase().includes(q)&&(filter==='todas'||(filter==='cachorro'?p.months<12:p.months>=12)));
+  const s=$('#sort').value;
+  list.sort((a,b)=>s==='name'?a.name.localeCompare(b.name):s==='age'?a.months-b.months:b.id-a.id);
+  $('#count').textContent=`(${list.length})`;
+  $('#grid').innerHTML=list.length?list.map(p=>`
+  <article class="card"><div class="top"><div class="pic">${p.cat?'🐱':'🐶'}</div>
+  <div><h3>${esc(p.name)}</h3><span class="tag">${esc(p.breed)}</span></div><span class="id">ID: ${p.id}</span></div>
+  <div class="rows"><div class="row"><span>Propietario</span><span>${esc(p.owner)}</span></div>
+  <div class="row"><span>Edad</span><span>${age(p.months)}</span></div></div>
+  <div class="acts"><button class="btn edit" data-e="${p.id}">✏️ Editar</button><button class="btn sched" data-a="${p.id}">📅 Agendar</button></div></article>`).join('')
+  :'<div class="empty">No encontramos mascotas con esos datos. Prueba otra búsqueda o agrega una nueva.</div>';
+}
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),2200)}
+function open(p){editing=p||null;$('#dt').textContent=p?'Editar mascota':'Nueva mascota';
+  $('#fn').value=p?p.name:'';$('#fb').value=p?p.breed:'';$('#fo').value=p?p.owner:'';$('#fa').value=p?p.months:'';$('#dlg').showModal()}
+$('#q').oninput=()=>renderAll();$('#sort').onchange=render;
+document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');filter=c.dataset.f;render()});
+$('#grid').onclick=e=>{const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.e)open(pets.find(p=>p.id==b.dataset.e));
+  if(b.dataset.a)askFor(pets.find(p=>p.id==b.dataset.a))};
+$('#new').onclick=()=>({mascotas:()=>open(),citas:newCita,duenos:newOwner,admin:newUser})[view]();
+$('#cancel').onclick=()=>$('#dlg').close();
+$('#form').onsubmit=()=>{const d={name:$('#fn').value,breed:$('#fb').value,owner:$('#fo').value,months:+$('#fa').value};
+  if(editing){Object.assign(editing,d);toast('Cambios guardados')}
+  else{pets.push({id:Math.max(...pets.map(p=>p.id))+1,...d});toast('Mascota agregada')}
+  render()};
+$('#theme').onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=dark?'light':'dark'};
+/* ---- Asistente de citas ---- */
+const msgs=$('#msgs'),cin=$('#cin'),citas=[];let pending=null;
+const hora=()=>new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
+function add(t,me){const d=document.createElement('div');d.className='m '+(me?'me':'bot');d.innerHTML='<div class="b"></div><small>'+hora()+'</small>';d.firstChild.textContent=t;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight}
+function greet(){msgs.innerHTML='';pending=null;add('¡Hola! Soy tu asistente de citas. Puedes escribirme o dictar por voz lo que necesitas agendar.')}
+function openChat(){$('#chat').classList.add('open');$('#fab').classList.add('hide');cin.focus()}
+function closeChat(){$('#chat').classList.remove('open');$('#fab').classList.remove('hide')}
+function askFor(p){openChat();pending=p;add('¿Cuándo quieres la cita para '+p.name+'? Por ejemplo: "mañana a las 3 pm".')}
+function answer(t){
+  const l=t.toLowerCase();
+  if(/mis citas|ver citas|agenda/.test(l)&&!/cita para/.test(l))return citas.length?'Citas agendadas:\n'+citas.map(c=>'• '+c.pet+' · '+c.when+' ('+c.status+')').join('\n'):'Aún no hay citas agendadas. Dime para qué mascota y cuándo.';
+  const p=pets.find(x=>l.includes(x.name.toLowerCase()))||pending;
+  const dia=(l.match(/hoy|mañana|pasado mañana|lunes|martes|miércoles|miercoles|jueves|viernes|sábado|sabado/)||[])[0];
+  const h=l.match(/(\d{1,2})(?::(\d{2}))?\s*(a\.?\s?m\.?|p\.?\s?m\.?|am|pm)/);
+  if(!p)return /cita|agendar|turno/.test(l)?'¿Para qué mascota es la cita? Escribe su nombre, por ejemplo: Simba.':'Puedo agendar citas. Prueba con: "Cita para Kira el viernes a las 4 pm".';
+  if(!dia&&!h){pending=p;return 'Perfecto, '+p.name+'. ¿Qué día y a qué hora?'}
+  if(!h){pending=p;return 'Anoté '+dia+' para '+p.name+'. ¿A qué hora?'}
+  if(!dia){pending=p;return 'Hora anotada. ¿Para qué día?'}
+  const hh=h[1]+':'+(h[2]||'00')+' '+(h[3][0]==='p'?'p. m.':'a. m.');
+  const txt=p.name+' ('+p.owner+') · '+dia+' a las '+hh;citas.unshift({id:Date.now(),pet:p.name,owner:p.owner,when:dia+' a las '+hh,status:'Pendiente',motivo:'Consulta'});renderAll();pending=null;toast('Cita agendada para '+p.name);
+  return 'Listo ✅ Agendé a '+p.name+' para '+dia+' a las '+hh+'.'}
+function send(){const t=cin.value.trim();if(!t)return;add(t,1);cin.value='';cnt();
+  const ty=document.createElement('div');ty.className='m bot typing';ty.innerHTML='<div class="b"><i></i><i></i><i></i></div>';msgs.appendChild(ty);msgs.scrollTop=msgs.scrollHeight;
+  setTimeout(()=>{ty.remove();add(answer(t))},600)}
+function cnt(){$('#cnt').textContent=cin.value.length+'/300'}
+cin.oninput=cnt;cin.onkeydown=e=>{if(e.key==='Enter')send()};
+$('#send').onclick=send;$('#fab').onclick=openChat;$('#cclose').onclick=closeChat;
+$('#cclear').onclick=()=>{greet();toast('Conversación borrada')};
+$('#sug').onclick=e=>{const b=e.target.closest('button');if(b){cin.value=b.textContent;cnt();send()}};
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let rec=null;
+$('#mic').onclick=()=>{
+  if(!SR){toast('Tu navegador no permite dictar por voz');return}
+  if(rec){rec.stop();return}
+  rec=new SR();rec.lang='es-CO';
+  rec.onstart=()=>$('#mic').classList.add('rec');
+  rec.onresult=e=>{cin.value=e.results[0][0].transcript.slice(0,300);cnt();cin.focus()};
+  rec.onend=rec.onerror=()=>{$('#mic').classList.remove('rec');rec=null};
+  rec.start()};
+/* ---- Navegación, dueños, citas, administración ---- */
+let view='mascotas',cfilter='Todas',clinic='Huellitas';
+const roles=['Administrador','Recepcionista','Veterinario'];
+let users=[{id:1,name:'Administrador',user:'admin',pass:'admin123',role:'Administrador',active:true},{id:2,name:'Laura Gómez',user:'laura',pass:'1234',role:'Recepcionista',active:true},{id:3,name:'Andrés Mejía',user:'andres',pass:'1234',role:'Veterinario',active:false}];
+let cu=users[0];
+const owners=[['Felipe Castro','300 111 2233'],['Juan Pérez','301 222 3344'],['Valentina Moreno','302 333 4455'],['Camilo Herrera','310 444 5566'],['Diana Rojas','311 555 6677'],['Natalia Ruiz','312 666 7788']].map(([name,phone],i)=>({id:i+1,name,phone,email:name.split(' ')[0].toLowerCase()+'@correo.com'}));
+citas.push({id:1,pet:'Bruno',owner:'Diana Rojas',when:'Hoy a las 10:00 a. m.',status:'Pendiente',motivo:'Vacunación'},{id:2,pet:'Simba',owner:'Juan Pérez',when:'Mañana a las 3:00 p. m.',status:'Pendiente',motivo:'Control'},{id:3,pet:'Kira',owner:'Valentina Moreno',when:'Ayer a las 9:00 a. m.',status:'Completada',motivo:'Desparasitación'});
+const ini=n=>n.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+const isAdmin=()=>cu.role==='Administrador';
+function form(title,fields,vals,cb){$('#gt').textContent=title;
+  $('#gf').innerHTML=fields.map(f=>'<label>'+f.l+'</label>'+(f.opts?'<select class="f" name="'+f.k+'">'+f.opts.map(o=>'<option '+(vals[f.k]===o?'selected':'')+'>'+esc(o)+'</option>').join('')+'</select>':'<input class="f" name="'+f.k+'" type="'+(f.t||'text')+'" value="'+esc(String(vals[f.k]??''))+'" required>')).join('');
+  $('#gform').onsubmit=()=>cb(Object.fromEntries(new FormData($('#gform'))));$('#gd').showModal()}
+$('#gcancel').onclick=()=>$('#gd').close();
+function sess(){$('#meav').textContent=ini(cu.name);$('#mename').textContent=cu.user;$('#merole').textContent=cu.role;$('#navadmin').hidden=!isAdmin()}
+function show(v){if(v==='admin'&&!isAdmin())v='mascotas';view=v;
+  document.querySelectorAll('main>div[id^=v-]').forEach(d=>d.hidden=d.id!=='v-'+v);
+  document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v));
+  document.querySelectorAll('#mnav .chip').forEach(a=>a.classList.toggle('on',a.dataset.v===v));
+  $('#new').querySelector('span').textContent={mascotas:'Nuevo',citas:'Nueva cita',duenos:'Nuevo dueño',admin:'Nuevo usuario'}[v];renderAll()}
+function renderAll(){render();renderCitas();renderOwners();renderAdmin()}
+function renderCitas(){const q=$('#q').value.toLowerCase();
+  const l=citas.filter(c=>(cfilter==='Todas'||c.status===cfilter)&&(c.pet+c.owner+c.motivo).toLowerCase().includes(q));
+  $('#v-citas').innerHTML='<div class="bar"><h1>Citas <small style="font-size:15px;color:var(--muted)">('+l.length+')</small></h1>'+['Todas','Pendiente','Completada','Cancelada'].map(s=>'<button class="chip '+(s===cfilter?'on':'')+'" data-cf="'+s+'">'+s+'</button>').join('')+'</div><div class="list">'+(l.map(c=>'<article class="item"><div class="when">🗓 '+esc(c.when)+'</div><div class="who"><b>'+esc(c.pet)+'</b><span>'+esc(c.owner)+' · '+esc(c.motivo)+'</span></div><span class="st '+c.status+'">'+c.status+'</span><div class="ia">'+(c.status==='Pendiente'?'<button class="btn sched" data-ok="'+c.id+'">✔ Completar</button><button class="btn edit" data-no="'+c.id+'">Cancelar</button>':'')+'</div></article>').join('')||'<div class="empty">No hay citas en esta vista. Agenda una con el botón Nueva cita.</div>')+'</div>'}
+$('#v-citas').onclick=e=>{const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.cf){cfilter=b.dataset.cf}
+  const c=citas.find(x=>x.id==(b.dataset.ok||b.dataset.no));
+  if(b.dataset.ok){c.status='Completada';toast('Cita completada')}
+  if(b.dataset.no){c.status='Cancelada';toast('Cita cancelada')}
+  renderAll()};
+function newCita(){form('Nueva cita',[{k:'pet',l:'Mascota',opts:pets.map(p=>p.name+' (#'+p.id+')')},{k:'date',l:'Fecha',t:'date'},{k:'time',l:'Hora',t:'time'},{k:'motivo',l:'Motivo'}],{motivo:'Consulta general'},d=>{
+  const p=pets.find(x=>d.pet.endsWith('#'+x.id+')'));citas.unshift({id:Date.now(),pet:p.name,owner:p.owner,when:d.date+' · '+d.time,status:'Pendiente',motivo:d.motivo});toast('Cita agendada');renderAll()})}
+function renderOwners(){const q=$('#q').value.toLowerCase();const l=owners.filter(o=>(o.name+o.phone+o.email).toLowerCase().includes(q));
+  $('#v-duenos').innerHTML='<div class="bar"><h1>Dueños <small style="font-size:15px;color:var(--muted)">('+l.length+')</small></h1></div><div class="grid">'+(l.map(o=>{const n=pets.filter(p=>p.owner===o.name).length;
+  return '<article class="card"><div class="top"><div class="pic" style="font-size:16px;font-weight:800;color:#fff">'+ini(o.name)+'</div><div><h3>'+esc(o.name)+'</h3><span class="tag">'+n+' mascota'+(n==1?'':'s')+'</span></div></div><div class="rows"><div class="row"><span>Teléfono</span><span>'+esc(o.phone)+'</span></div><div class="row"><span>Correo</span><span>'+esc(o.email)+'</span></div></div><div class="acts"><button class="btn edit" data-oe="'+o.id+'">✏️ Editar</button><button class="btn edit" data-od="'+o.id+'">🗑 Eliminar</button></div></article>'}).join('')||'<div class="empty">No hay dueños que coincidan con la búsqueda.</div>')+'</div>'}
+const ofields=[{k:'name',l:'Nombre'},{k:'phone',l:'Teléfono'},{k:'email',l:'Correo',t:'email'}];
+function newOwner(){form('Nuevo dueño',ofields,{},d=>{owners.push({id:Date.now(),...d});toast('Dueño agregado');renderAll()})}
+$('#v-duenos').onclick=e=>{const b=e.target.closest('button');if(!b)return;
+  const o=owners.find(x=>x.id==(b.dataset.oe||b.dataset.od));
+  if(b.dataset.oe)form('Editar dueño',ofields,o,d=>{pets.forEach(p=>{if(p.owner===o.name)p.owner=d.name});Object.assign(o,d);toast('Cambios guardados');renderAll()});
+  if(b.dataset.od){if(pets.some(p=>p.owner===o.name))toast('No se puede eliminar: tiene mascotas registradas');else{owners.splice(owners.indexOf(o),1);toast('Dueño eliminado');renderAll()}}};
+function renderAdmin(){if(!isAdmin())return;const pend=citas.filter(c=>c.status==='Pendiente').length;
+  $('#v-admin').innerHTML='<div class="bar"><h1>Administración</h1></div><div class="stats">'+[['🐾',pets.length,'Mascotas'],['👥',owners.length,'Dueños'],['📅',pend,'Citas pendientes'],['🛡️',users.filter(u=>u.active).length,'Usuarios activos']].map(s=>'<div class="stat"><span>'+s[0]+'</span><b>'+s[1]+'</b><small>'+s[2]+'</small></div>').join('')+'</div>'+
+  '<div class="panel"><div class="ph"><h2>Usuarios del sistema</h2><button class="btn sched" id="nu">＋ Nuevo usuario</button></div><div class="tw"><table><thead><tr><th>Usuario</th><th>Rol</th><th>Estado</th><th></th></tr></thead><tbody>'+users.map(u=>'<tr><td><b>'+esc(u.name)+'</b><br><small>@'+esc(u.user)+'</small></td><td><select data-ur="'+u.id+'">'+roles.map(r=>'<option '+(r===u.role?'selected':'')+'>'+r+'</option>').join('')+'</select></td><td><label class="sw"><input type="checkbox" data-ua="'+u.id+'" '+(u.active?'checked':'')+'>'+(u.active?'Activo':'Inactivo')+'</label></td><td><button class="btn edit" data-ud="'+u.id+'" aria-label="Eliminar usuario">🗑</button></td></tr>').join('')+'</tbody></table></div></div>'+
+  '<div class="panel"><div class="ph"><h2>Clínica</h2></div><label>Nombre de la clínica</label><div style="display:flex;gap:8px;max-width:420px"><input class="f" id="cn" value="'+esc(clinic)+'"><button class="btn sched" id="cs">Guardar</button></div></div>'}
+function newUser(){form('Nuevo usuario',[{k:'name',l:'Nombre completo'},{k:'user',l:'Usuario'},{k:'pass',l:'Contraseña',t:'password'},{k:'role',l:'Rol',opts:roles}],{role:'Recepcionista'},d=>{
+  if(users.some(u=>u.user===d.user)){toast('Ese usuario ya existe');return}users.push({id:Date.now(),active:true,...d});toast('Usuario creado');renderAll()})}
+$('#v-admin').onclick=e=>{const b=e.target.closest('button');if(!b)return;
+  if(b.id==='nu')newUser();
+  if(b.id==='cs'){clinic=$('#cn').value.trim()||clinic;document.querySelector('.logo b').textContent=clinic;toast('Nombre actualizado')}
+  if(b.dataset.ud){const u=users.find(x=>x.id==b.dataset.ud);if(u===cu)toast('No puedes eliminar tu propia cuenta');else{users.splice(users.indexOf(u),1);toast('Usuario eliminado');renderAll()}}};
+$('#v-admin').onchange=e=>{const t=e.target,id=t.dataset.ur||t.dataset.ua,u=users.find(x=>x.id==id);if(!u)return;
+  if(t.dataset.ur){if(u===cu&&t.value!=='Administrador'){toast('No puedes quitarte el rol de administrador');t.value=u.role;return}u.role=t.value}
+  if(t.dataset.ua){if(u===cu){toast('No puedes desactivar tu cuenta');t.checked=true;return}u.active=t.checked}
+  toast('Usuario actualizado');renderAll()};
+document.querySelectorAll('nav a,#mnav .chip').forEach(a=>a.onclick=()=>show(a.dataset.v));
+$('#me').onclick=()=>show(isAdmin()?'admin':'mascotas');
+$('#logout').onclick=()=>{closeChat();$('#lu').value=$('#lp').value='';$('#lerr').textContent='';$('#login').hidden=false;$('#lu').focus()};
+$('#lform').onsubmit=e=>{e.preventDefault();const u=users.find(x=>x.user===$('#lu').value.trim()&&x.pass===$('#lp').value);
+  if(!u)return $('#lerr').textContent='Usuario o contraseña incorrectos.';
+  if(!u.active)return $('#lerr').textContent='Esta cuenta está inactiva. Pide a un administrador que la active.';
+  cu=u;sess();$('#login').hidden=true;show('mascotas');toast('Bienvenido, '+u.name)};
+greet();
+sess();show('mascotas');
+</script>
+</body>
+</html>
